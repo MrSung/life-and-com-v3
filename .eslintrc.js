@@ -22,6 +22,9 @@ module.exports = {
     'plugin:react/recommended'
   ],
   rules: {
-    'react/no-danger': 'off'
+    'react/prop-types': 'off',
+    'react/no-danger': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/no-unsafe-assignment': 'off'
   }
 }
