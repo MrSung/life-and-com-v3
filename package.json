@@ -1,9 +1,14 @@
 {
-  "name": "gatsby-starter-hello-world",
+  "name": "life-and-com-v3",
   "private": true,
   "description": "A simplified bare-bones starter for Gatsby",
   "version": "0.1.0",
   "license": "0BSD",
+  "author": "Sungjoon Park <sungjoon512@gmail.com>",
+  "engines": {
+    "node": "12.19.0",
+    "yarn": "1.22.10"
+  },
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
