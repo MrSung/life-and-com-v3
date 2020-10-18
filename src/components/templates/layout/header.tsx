@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Scrollspy from 'react-scrollspy'
 import { nanoid } from 'nanoid/non-secure'
@@ -24,8 +24,8 @@ interface IHeaderProps {
 }
 
 export const Header: React.FC<IHeaderProps> = ({ pathname, scrollspyItems, externalLinks, socialLinks }) => {
-  const [isTriggered, setIsTriggered] = React.useState(false)
-  const [winHeight, setWinHeight] = React.useState(0)
+  const [isTriggered, setIsTriggered] = useState(false)
+  const [winHeight, setWinHeight] = useState(0)
   const isRootPath = pathname === '/'
 
   const handleWinResize = (): void => {
@@ -38,7 +38,7 @@ export const Header: React.FC<IHeaderProps> = ({ pathname, scrollspyItems, exter
     setIsTriggered(scrollTop >= winHeight)
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isRootPath) setIsTriggered(true)
 
     handleWinResize()

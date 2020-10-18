@@ -4330,9 +4330,63 @@ type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type PagesQueryQuery = { readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
 
+type ContactQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ContactQueryQuery = { readonly allMicrocmsContact: { readonly edges: ReadonlyArray<{ readonly node: Pick<MicrocmsContact, 'title' | 'subtitle' | 'map'> }> }, readonly allMicrocmsContactContent: { readonly edges: ReadonlyArray<{ readonly node: (
+        Pick<MicrocmsContactContent, 'contactTitle' | 'contactSubtitle' | 'contactCaption'>
+        & { readonly contactList: Maybe<ReadonlyArray<Maybe<Pick<MicrocmsContactContentContactList, 'tableHead' | 'tableData'>>>> }
+      ) }> }, readonly allMicrocmsExternalLinks: { readonly edges: ReadonlyArray<{ readonly node: Pick<MicrocmsExternalLinks, 'facebookLinkHP' | 'facebookLinkLC' | 'instagramLinkHP' | 'instagramLinkLC' | 'recruitLink'> }> } };
+
+type IntroQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type IntroQueryQuery = { readonly allMicrocmsIntro: { readonly edges: ReadonlyArray<{ readonly node: (
+        Pick<MicrocmsIntro, 'id' | 'body' | 'heading'>
+        & { readonly image: Maybe<Pick<MicrocmsIntroImage, 'url'>> }
+      ) }> } };
+
+type ServiceQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ServiceQueryQuery = { readonly allMicrocmsService: { readonly edges: ReadonlyArray<{ readonly node: Pick<MicrocmsService, 'title' | 'subtitle' | 'desc'> }> }, readonly allMicrocmsServiceContent: { readonly edges: ReadonlyArray<{ readonly node: (
+        Pick<MicrocmsServiceContent, 'tabTitleShort' | 'tabTitleLong' | 'tabTableMode'>
+        & { readonly tabContent: Maybe<(
+          Pick<MicrocmsServiceContentTabContent, 'tabContentBody1' | 'tabContentBody2' | 'tabContentTitle1' | 'tabContentTitle2'>
+          & { readonly tabContentImage1: Maybe<Pick<MicrocmsServiceContentTabContentTabContentImage1, 'url'>>, readonly tabContentImage2: Maybe<Pick<MicrocmsServiceContentTabContentTabContentImage2, 'url'>> }
+        )>, readonly tabTable: Maybe<(
+          Pick<MicrocmsServiceContentTabTable, 'table1Caption' | 'table1Data1' | 'table1Head1'>
+          & { readonly table1Image: Maybe<Pick<MicrocmsServiceContentTabTableTable1Image, 'url'>> }
+        )> }
+      ) }> } };
+
+type MissionQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type MissionQueryQuery = { readonly allMicrocmsMission: { readonly edges: ReadonlyArray<{ readonly node: (
+        Pick<MicrocmsMission, 'id' | 'title' | 'subtitle'>
+        & { readonly list: Maybe<ReadonlyArray<Maybe<Pick<MicrocmsMissionList, 'body' | 'heading'>>>> }
+      ) }> } };
+
+type StaffQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type StaffQueryQuery = { readonly allMicrocmsStaff: { readonly edges: ReadonlyArray<{ readonly node: (
+        Pick<MicrocmsStaff, 'title' | 'subtitle' | 'id' | 'desc'>
+        & { readonly list: Maybe<ReadonlyArray<Maybe<(
+          Pick<MicrocmsStaffList, 'job' | 'hobbies' | 'message' | 'name' | 'quote'>
+          & { readonly thumbnail: Maybe<Pick<MicrocmsStaffListThumbnail, 'url'>> }
+        )>>> }
+      ) }> } };
+
 type ExternalLinksQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type ExternalLinksQueryQuery = { readonly allMicrocmsExternalLinks: { readonly edges: ReadonlyArray<{ readonly node: Pick<MicrocmsExternalLinks, 'facebookLinkHP' | 'facebookLinkLC' | 'instagramLinkHP' | 'instagramLinkLC' | 'recruitLink'> }> } };
+
+type SiteMetaDataQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type SiteMetaDataQueryQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
 
 }
