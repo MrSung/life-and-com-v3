@@ -8,63 +8,78 @@ const {
   siteMetadataDescription,
   siteMetadataAuthor,
   siteUrl,
-  microCmsEndpoints,
+  microCmsEndpoints
 } = require('./config')
 
 require('dotenv').config({
-  path: '.env',
+  path: '.env'
 })
 
-const gatsbyConfig = {
-  /* Your site config here */
+module.exports = {
+  siteMetadata: {
+    title: siteMetadataTitle,
+    description: siteMetadataDescription,
+    author: siteMetadataAuthor,
+    siteUrl
+  },
   plugins: [
-    `gatsby-plugin-typegen`,
-    `gatsby-plugin-styled-components`,
-    `gatsby-plugin-react-helmet`,
+    'gatsby-plugin-typescript',
+    'gatsby-plugin-typegen',
+    'gatsby-plugin-styled-components',
+    'gatsby-plugin-react-helmet',
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-filesystem',
       options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
+        name: 'images',
+        path: `${__dirname}/src/images`
+      }
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: 'gatsby-plugin-manifest',
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
-        start_url: `/`,
-        background_color: `#fff`,
-        theme_color: `#fff`,
-        display: `minimal-ui`,
-        icon: `src/images/logo-life-and-com-gradient-vivid.png`, // This path is relative to the root of the site.
-      },
+        name: 'gatsby-starter-default',
+        short_name: 'starter',
+        start_url: '/',
+        background_color: '#fff',
+        theme_color: '#fff',
+        display: 'minimal-ui',
+        icon: 'src/images/logo-life-and-com-gradient-vivid.png' // This path is relative to the root of the site.
+      }
     },
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
         host: siteUrl,
         sitemap: `${siteUrl}/sitemap.xml`,
-        policy: [{ userAgent: '*', allow: '/' }],
-      },
+        policy: [{ userAgent: '*', allow: '/' }]
+      }
     },
     {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
         google: {
-          families: ['Noto Sans JP'],
-        },
-      },
+          families: ['Noto Sans JP']
+        }
+      }
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: 'gatsby-source-microcms',
       options: {
-        trackingId: process.env.GATSBY_GOOGLE_ANALYTICS_API_KEY,
-      },
+        apiKey: process.env.GATSBY_X_API_KEY,
+        serviceId: 'life-and-com',
+        apis: microCmsEndpoints.map(({ endpoint, format }) => ({
+          endpoint,
+          format
+        }))
+      }
     },
-  ],
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        trackingId: process.env.GATSBY_GOOGLE_ANALYTICS_API_KEY
+      }
+    }
+  ]
 }
-
-module.exports = gatsbyConfig
