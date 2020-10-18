@@ -23,7 +23,13 @@ module.exports = {
     siteUrl
   },
   plugins: [
-    'gatsby-plugin-typescript',
+    {
+      resolve: 'gatsby-plugin-typescript',
+      options: {
+        isTSX: true, // defaults to false
+        allExtensions: true // defaults to false. isTSX:true requires allExtensions:true
+      }
+    },
     'gatsby-plugin-typegen',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-react-helmet',
