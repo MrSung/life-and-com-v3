@@ -9,9 +9,9 @@ import { serviceItems } from '../../../data/service'
 export const Service: React.FC = () => {
   const [tabIndex, setTabIndex] = useState(0)
   return (
-    <StaticQuery<GatsbyTypes.ServiceQueryQuery>
+    <StaticQuery<GatsbyTypes.ServiceQuery>
       query={graphql`
-        query ServiceQuery {
+        query Service {
           allMicrocmsService {
             edges {
               node {

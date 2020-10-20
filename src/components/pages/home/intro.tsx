@@ -7,9 +7,9 @@ import LazyLoad from 'react-lazyload'
 import { device } from '../../../utils/device'
 
 export const Intro: React.FC = () => (
-  <StaticQuery<GatsbyTypes.IntroQueryQuery>
+  <StaticQuery<GatsbyTypes.IntroQuery>
     query={graphql`
-      query IntroQuery {
+      query Intro {
         allMicrocmsIntro {
           edges {
             node {

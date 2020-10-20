@@ -7,9 +7,9 @@ import { device } from '../../../utils/device'
 import { number1, number2, number3, number4 } from '../../../data/mission'
 
 export const Mission: React.FC = () => (
-  <StaticQuery<GatsbyTypes.MissionQueryQuery>
+  <StaticQuery<GatsbyTypes.MissionQuery>
     query={graphql`
-      query MissionQuery {
+      query Mission {
         allMicrocmsMission {
           edges {
             node {

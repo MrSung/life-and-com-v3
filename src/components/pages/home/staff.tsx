@@ -82,9 +82,9 @@ export const Staff: React.FC = () => {
   }, [winWidth])
 
   return (
-    <StaticQuery<GatsbyTypes.StaffQueryQuery>
+    <StaticQuery<GatsbyTypes.StaffQuery>
       query={graphql`
-        query StaffQuery {
+        query Staff {
           allMicrocmsStaff {
             edges {
               node {
