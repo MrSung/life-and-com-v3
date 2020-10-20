@@ -34,7 +34,7 @@ export const Mission: React.FC = () => (
           </h2>
           {data.allMicrocmsMission.edges[0].node.list.map(
             ({ heading, body }, index) => (
-              <Fade direction="up" duration={400} key={nanoid()}>
+              <Fade direction="up" duration={400} key={nanoid()} triggerOnce cascade>
                 <StyledMission className={`number${index + 1}`}>
                   <StyledMissionHeading>{heading}</StyledMissionHeading>
                   <p>{body}</p>

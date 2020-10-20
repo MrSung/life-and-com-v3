@@ -40,7 +40,7 @@ export const Intro: React.FC = () => (
         </StyledDivImageWrapper>
         <StyledDivGradient>
           <StyledArticle className="ts-inner">
-            <Fade direction="up" duration={400}>
+            <Fade direction="up" duration={400} triggerOnce>
               <StyledArticleInner>
                 <StyledArticleHeading>
                   {data.allMicrocmsIntro.edges[0].node.heading}

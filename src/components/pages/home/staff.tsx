@@ -123,7 +123,7 @@ export const Staff: React.FC = () => {
             <StyledDivStaff>
               {data.allMicrocmsStaff.edges[0].node.list.map(
                 ({ name, job, thumbnail, hobbies, quote, message }) => (
-                  <Fade direction="up" duration={400} key={nanoid()}>
+                  <Fade direction="up" duration={400} key={nanoid()} triggerOnce cascade className="react-awesome-reveal">
                     <section className="js-section-staff">
                       <StyledHeading>{name}</StyledHeading>
                       <StyledHeadingSub
@@ -163,7 +163,7 @@ const StyledDivStaff = styled.div`
   flex-wrap: wrap;
   margin-top: 72px;
 
-  .react-reveal {
+  .react-awesome-reveal {
     margin-bottom: 48px;
     max-width: 100%;
     text-align: center;
