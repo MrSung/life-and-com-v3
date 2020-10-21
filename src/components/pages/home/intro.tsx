@@ -1,7 +1,8 @@
 import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
-import { Fade } from 'react-awesome-reveal'
+// @ts-expect-error
+import Fade from 'react-reveal/Fade'
 import LazyLoad from 'react-lazyload'
 import { device } from '../../../utils/device'
 
@@ -39,7 +40,7 @@ export const Intro: React.FC = () => (
         </StyledDivImageWrapper>
         <StyledDivGradient>
           <StyledArticle className="ts-inner">
-            <Fade direction="up" duration={400} triggerOnce>
+            <Fade bottom duration={400} distance="36px">
               <StyledArticleInner>
                 <StyledArticleHeading>
                   {data.allMicrocmsIntro.edges[0].node.heading}

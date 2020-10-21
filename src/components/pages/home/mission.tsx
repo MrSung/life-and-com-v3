@@ -1,7 +1,8 @@
 import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
-import { Fade } from 'react-awesome-reveal'
+// @ts-expect-error
+import Fade from 'react-reveal/Fade'
 import { nanoid } from 'nanoid/non-secure'
 import { device } from '../../../utils/device'
 import { number1, number2, number3, number4 } from '../../../data/mission'
@@ -34,7 +35,7 @@ export const Mission: React.FC = () => (
           </h2>
           {data.allMicrocmsMission.edges[0].node.list.map(
             ({ heading, body }, index) => (
-              <Fade direction="up" duration={400} key={nanoid()} triggerOnce cascade>
+              <Fade bottom duration={400} distance="36px" key={nanoid()}>
                 <StyledMission className={`number${index + 1}`}>
                   <StyledMissionHeading>{heading}</StyledMissionHeading>
                   <p>{body}</p>

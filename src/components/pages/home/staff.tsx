@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
 import { debounce } from 'throttle-debounce'
-import { Fade } from 'react-awesome-reveal'
+// @ts-expect-error
+import Fade from 'react-reveal/Fade'
 import LazyLoad from 'react-lazyload'
 import { nanoid } from 'nanoid/non-secure'
 import { size, device } from '../../../utils/device'
@@ -123,7 +124,7 @@ export const Staff: React.FC = () => {
             <StyledDivStaff>
               {data.allMicrocmsStaff.edges[0].node.list.map(
                 ({ name, job, thumbnail, hobbies, quote, message }) => (
-                  <Fade direction="up" duration={400} key={nanoid()} triggerOnce cascade className="react-awesome-reveal">
+                  <Fade bottom duration={400} distance="36px" key={nanoid()}>
                     <section className="js-section-staff">
                       <StyledHeading>{name}</StyledHeading>
                       <StyledHeadingSub
@@ -163,7 +164,7 @@ const StyledDivStaff = styled.div`
   flex-wrap: wrap;
   margin-top: 72px;
 
-  .react-awesome-reveal {
+  .react-reveal {
     margin-bottom: 48px;
     max-width: 100%;
     text-align: center;
