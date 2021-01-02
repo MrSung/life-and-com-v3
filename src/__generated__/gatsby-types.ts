@@ -3,8 +3,6 @@
 declare namespace GatsbyTypes {
 type Maybe<T> = T | undefined;
 type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 type Scalars = {
   ID: string;
@@ -25,16 +23,6 @@ type Scalars = {
 
 
 
-
-type BlurredOptions = {
-  /** Width of the generated low-res preview. Default is 20px */
-  readonly width: Maybe<Scalars['Int']>;
-  /**
-   * Force the output format for the low-res preview. Default is to use the same
-   * format as the input. You should rarely need to change this
-   */
-  readonly toFormat: Maybe<ImageFormat>;
-};
 
 type BooleanQueryOperatorInput = {
   readonly eq: Maybe<Scalars['Boolean']>;
@@ -569,7 +557,6 @@ enum FileFieldsEnum {
   childImageSharp___sizes___originalName = 'childImageSharp.sizes.originalName',
   childImageSharp___sizes___presentationWidth = 'childImageSharp.sizes.presentationWidth',
   childImageSharp___sizes___presentationHeight = 'childImageSharp.sizes.presentationHeight',
-  childImageSharp___gatsbyImageData = 'childImageSharp.gatsbyImageData',
   childImageSharp___original___width = 'childImageSharp.original.width',
   childImageSharp___original___height = 'childImageSharp.original.height',
   childImageSharp___original___src = 'childImageSharp.original.src',
@@ -796,23 +783,9 @@ enum ImageFit {
 
 enum ImageFormat {
   NO_CHANGE = '',
-  AUTO = '',
   JPG = 'jpg',
   PNG = 'png',
   WEBP = 'webp'
-}
-
-enum ImageLayout {
-  FIXED = 'fixed',
-  FLUID = 'fluid',
-  CONSTRAINED = 'constrained'
-}
-
-enum ImagePlaceholder {
-  DOMINANT_COLOR = 'dominantColor',
-  TRACED_SVG = 'tracedSVG',
-  BLURRED = 'blurred',
-  NONE = 'none'
 }
 
 type ImageSharp = Node & {
@@ -822,7 +795,6 @@ type ImageSharp = Node & {
   readonly fluid: Maybe<ImageSharpFluid>;
   /** @deprecated Sizes was deprecated in Gatsby v2. It's been renamed to "fluid" https://example.com/write-docs-and-fix-this-example-link */
   readonly sizes: Maybe<ImageSharpSizes>;
-  readonly gatsbyImageData: Scalars['JSON'];
   readonly original: Maybe<ImageSharpOriginal>;
   readonly resize: Maybe<ImageSharpResize>;
   readonly id: Scalars['ID'];
@@ -928,27 +900,6 @@ type ImageSharp_sizesArgs = {
 };
 
 
-type ImageSharp_gatsbyImageDataArgs = {
-  layout?: Maybe<ImageLayout>;
-  maxWidth: Maybe<Scalars['Int']>;
-  maxHeight: Maybe<Scalars['Int']>;
-  width: Maybe<Scalars['Int']>;
-  height: Maybe<Scalars['Int']>;
-  placeholder?: Maybe<ImagePlaceholder>;
-  blurredOptions: Maybe<BlurredOptions>;
-  tracedSVGOptions: Maybe<Potrace>;
-  formats?: Maybe<ReadonlyArray<Maybe<ImageFormat>>>;
-  outputPixelDensities: Maybe<ReadonlyArray<Maybe<Scalars['Float']>>>;
-  sizes?: Maybe<Scalars['String']>;
-  quality: Maybe<Scalars['Int']>;
-  jpgOptions: Maybe<JPGOptions>;
-  pngOptions: Maybe<PNGOptions>;
-  webpOptions: Maybe<WebPOptions>;
-  transformOptions: Maybe<TransformOptions>;
-  background?: Maybe<Scalars['String']>;
-};
-
-
 type ImageSharp_resizeArgs = {
   width: Maybe<Scalars['Int']>;
   height: Maybe<Scalars['Int']>;
@@ -1043,7 +994,6 @@ enum ImageSharpFieldsEnum {
   sizes___originalName = 'sizes.originalName',
   sizes___presentationWidth = 'sizes.presentationWidth',
   sizes___presentationHeight = 'sizes.presentationHeight',
-  gatsbyImageData = 'gatsbyImageData',
   original___width = 'original.width',
   original___height = 'original.height',
   original___src = 'original.src',
@@ -1146,7 +1096,6 @@ type ImageSharpFilterInput = {
   readonly resolutions: Maybe<ImageSharpResolutionsFilterInput>;
   readonly fluid: Maybe<ImageSharpFluidFilterInput>;
   readonly sizes: Maybe<ImageSharpSizesFilterInput>;
-  readonly gatsbyImageData: Maybe<JSONQueryOperatorInput>;
   readonly original: Maybe<ImageSharpOriginalFilterInput>;
   readonly resize: Maybe<ImageSharpResizeFilterInput>;
   readonly id: Maybe<StringQueryOperatorInput>;
@@ -1344,20 +1293,6 @@ type IntQueryOperatorInput = {
   readonly nin: Maybe<ReadonlyArray<Maybe<Scalars['Int']>>>;
 };
 
-type JPGOptions = {
-  readonly quality: Maybe<Scalars['Int']>;
-  readonly progressive: Maybe<Scalars['Boolean']>;
-};
-
-
-type JSONQueryOperatorInput = {
-  readonly eq: Maybe<Scalars['JSON']>;
-  readonly ne: Maybe<Scalars['JSON']>;
-  readonly in: Maybe<ReadonlyArray<Maybe<Scalars['JSON']>>>;
-  readonly nin: Maybe<ReadonlyArray<Maybe<Scalars['JSON']>>>;
-  readonly regex: Maybe<Scalars['JSON']>;
-  readonly glob: Maybe<Scalars['JSON']>;
-};
 
 type MicrocmsContact = Node & {
   readonly id: Scalars['ID'];
@@ -2348,12 +2283,14 @@ type MicrocmsServiceContent = Node & {
   readonly internal: Internal;
   readonly createdAt: Maybe<Scalars['Date']>;
   readonly updatedAt: Maybe<Scalars['Date']>;
+  readonly revisedAt: Maybe<Scalars['Date']>;
   readonly tabTitleLong: Maybe<Scalars['String']>;
   readonly tabTitleShort: Maybe<Scalars['String']>;
   readonly tabTableMode: Maybe<Scalars['Boolean']>;
   readonly tabContent: Maybe<MicrocmsServiceContentTabContent>;
   readonly tabTable: Maybe<MicrocmsServiceContentTabTable>;
   readonly serviceContentId: Maybe<Scalars['String']>;
+  readonly publishedAt: Maybe<Scalars['Date']>;
 };
 
 
@@ -2366,6 +2303,22 @@ type MicrocmsServiceContent_createdAtArgs = {
 
 
 type MicrocmsServiceContent_updatedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type MicrocmsServiceContent_revisedAtArgs = {
+  formatString: Maybe<Scalars['String']>;
+  fromNow: Maybe<Scalars['Boolean']>;
+  difference: Maybe<Scalars['String']>;
+  locale: Maybe<Scalars['String']>;
+};
+
+
+type MicrocmsServiceContent_publishedAtArgs = {
   formatString: Maybe<Scalars['String']>;
   fromNow: Maybe<Scalars['Boolean']>;
   difference: Maybe<Scalars['String']>;
@@ -2488,6 +2441,7 @@ enum MicrocmsServiceContentFieldsEnum {
   internal___type = 'internal.type',
   createdAt = 'createdAt',
   updatedAt = 'updatedAt',
+  revisedAt = 'revisedAt',
   tabTitleLong = 'tabTitleLong',
   tabTitleShort = 'tabTitleShort',
   tabTableMode = 'tabTableMode',
@@ -2503,7 +2457,8 @@ enum MicrocmsServiceContentFieldsEnum {
   tabTable___table1Head1 = 'tabTable.table1Head1',
   tabTable___table1Data1 = 'tabTable.table1Data1',
   tabTable___table1Caption = 'tabTable.table1Caption',
-  serviceContentId = 'serviceContentId'
+  serviceContentId = 'serviceContentId',
+  publishedAt = 'publishedAt'
 }
 
 type MicrocmsServiceContentFilterInput = {
@@ -2513,12 +2468,14 @@ type MicrocmsServiceContentFilterInput = {
   readonly internal: Maybe<InternalFilterInput>;
   readonly createdAt: Maybe<DateQueryOperatorInput>;
   readonly updatedAt: Maybe<DateQueryOperatorInput>;
+  readonly revisedAt: Maybe<DateQueryOperatorInput>;
   readonly tabTitleLong: Maybe<StringQueryOperatorInput>;
   readonly tabTitleShort: Maybe<StringQueryOperatorInput>;
   readonly tabTableMode: Maybe<BooleanQueryOperatorInput>;
   readonly tabContent: Maybe<MicrocmsServiceContentTabContentFilterInput>;
   readonly tabTable: Maybe<MicrocmsServiceContentTabTableFilterInput>;
   readonly serviceContentId: Maybe<StringQueryOperatorInput>;
+  readonly publishedAt: Maybe<DateQueryOperatorInput>;
 };
 
 type MicrocmsServiceContentGroupConnection = {
@@ -2967,11 +2924,6 @@ type PageInfo = {
   readonly totalCount: Scalars['Int'];
 };
 
-type PNGOptions = {
-  readonly quality: Maybe<Scalars['Int']>;
-  readonly compressionSpeed: Maybe<Scalars['Int']>;
-};
-
 type Potrace = {
   readonly turnPolicy: Maybe<PotraceTurnPolicy>;
   readonly turdSize: Maybe<Scalars['Float']>;
@@ -3179,7 +3131,6 @@ type Query_imageSharpArgs = {
   resolutions: Maybe<ImageSharpResolutionsFilterInput>;
   fluid: Maybe<ImageSharpFluidFilterInput>;
   sizes: Maybe<ImageSharpSizesFilterInput>;
-  gatsbyImageData: Maybe<JSONQueryOperatorInput>;
   original: Maybe<ImageSharpOriginalFilterInput>;
   resize: Maybe<ImageSharpResizeFilterInput>;
   id: Maybe<StringQueryOperatorInput>;
@@ -3270,12 +3221,14 @@ type Query_microcmsServiceContentArgs = {
   internal: Maybe<InternalFilterInput>;
   createdAt: Maybe<DateQueryOperatorInput>;
   updatedAt: Maybe<DateQueryOperatorInput>;
+  revisedAt: Maybe<DateQueryOperatorInput>;
   tabTitleLong: Maybe<StringQueryOperatorInput>;
   tabTitleShort: Maybe<StringQueryOperatorInput>;
   tabTableMode: Maybe<BooleanQueryOperatorInput>;
   tabContent: Maybe<MicrocmsServiceContentTabContentFilterInput>;
   tabTable: Maybe<MicrocmsServiceContentTabTableFilterInput>;
   serviceContentId: Maybe<StringQueryOperatorInput>;
+  publishedAt: Maybe<DateQueryOperatorInput>;
 };
 
 
@@ -3916,29 +3869,18 @@ enum SitePageFieldsEnum {
   pluginCreator___version = 'pluginCreator.version',
   pluginCreator___pluginOptions___isTSX = 'pluginCreator.pluginOptions.isTSX',
   pluginCreator___pluginOptions___allExtensions = 'pluginCreator.pluginOptions.allExtensions',
-  pluginCreator___pluginOptions___jsxPragma = 'pluginCreator.pluginOptions.jsxPragma',
-  pluginCreator___pluginOptions___displayName = 'pluginCreator.pluginOptions.displayName',
-  pluginCreator___pluginOptions___fileName = 'pluginCreator.pluginOptions.fileName',
-  pluginCreator___pluginOptions___minify = 'pluginCreator.pluginOptions.minify',
-  pluginCreator___pluginOptions___transpileTemplateLiterals = 'pluginCreator.pluginOptions.transpileTemplateLiterals',
-  pluginCreator___pluginOptions___pure = 'pluginCreator.pluginOptions.pure',
   pluginCreator___pluginOptions___name = 'pluginCreator.pluginOptions.name',
   pluginCreator___pluginOptions___path = 'pluginCreator.pluginOptions.path',
-  pluginCreator___pluginOptions___base64Width = 'pluginCreator.pluginOptions.base64Width',
-  pluginCreator___pluginOptions___stripMetadata = 'pluginCreator.pluginOptions.stripMetadata',
-  pluginCreator___pluginOptions___defaultQuality = 'pluginCreator.pluginOptions.defaultQuality',
-  pluginCreator___pluginOptions___failOnError = 'pluginCreator.pluginOptions.failOnError',
   pluginCreator___pluginOptions___short_name = 'pluginCreator.pluginOptions.short_name',
   pluginCreator___pluginOptions___start_url = 'pluginCreator.pluginOptions.start_url',
   pluginCreator___pluginOptions___background_color = 'pluginCreator.pluginOptions.background_color',
   pluginCreator___pluginOptions___theme_color = 'pluginCreator.pluginOptions.theme_color',
   pluginCreator___pluginOptions___display = 'pluginCreator.pluginOptions.display',
   pluginCreator___pluginOptions___icon = 'pluginCreator.pluginOptions.icon',
+  pluginCreator___pluginOptions___cache_busting_mode = 'pluginCreator.pluginOptions.cache_busting_mode',
+  pluginCreator___pluginOptions___include_favicon = 'pluginCreator.pluginOptions.include_favicon',
   pluginCreator___pluginOptions___legacy = 'pluginCreator.pluginOptions.legacy',
   pluginCreator___pluginOptions___theme_color_in_head = 'pluginCreator.pluginOptions.theme_color_in_head',
-  pluginCreator___pluginOptions___cache_busting_mode = 'pluginCreator.pluginOptions.cache_busting_mode',
-  pluginCreator___pluginOptions___crossOrigin = 'pluginCreator.pluginOptions.crossOrigin',
-  pluginCreator___pluginOptions___include_favicon = 'pluginCreator.pluginOptions.include_favicon',
   pluginCreator___pluginOptions___cacheDigest = 'pluginCreator.pluginOptions.cacheDigest',
   pluginCreator___pluginOptions___host = 'pluginCreator.pluginOptions.host',
   pluginCreator___pluginOptions___sitemap = 'pluginCreator.pluginOptions.sitemap',
@@ -3952,10 +3894,6 @@ enum SitePageFieldsEnum {
   pluginCreator___pluginOptions___apis___endpoint = 'pluginCreator.pluginOptions.apis.endpoint',
   pluginCreator___pluginOptions___apis___format = 'pluginCreator.pluginOptions.apis.format',
   pluginCreator___pluginOptions___trackingId = 'pluginCreator.pluginOptions.trackingId',
-  pluginCreator___pluginOptions___head = 'pluginCreator.pluginOptions.head',
-  pluginCreator___pluginOptions___anonymize = 'pluginCreator.pluginOptions.anonymize',
-  pluginCreator___pluginOptions___respectDNT = 'pluginCreator.pluginOptions.respectDNT',
-  pluginCreator___pluginOptions___pageTransitionDelay = 'pluginCreator.pluginOptions.pageTransitionDelay',
   pluginCreator___pluginOptions___pathCheck = 'pluginCreator.pluginOptions.pathCheck',
   pluginCreator___nodeAPIs = 'pluginCreator.nodeAPIs',
   pluginCreator___browserAPIs = 'pluginCreator.browserAPIs',
@@ -4145,29 +4083,18 @@ enum SitePluginFieldsEnum {
   version = 'version',
   pluginOptions___isTSX = 'pluginOptions.isTSX',
   pluginOptions___allExtensions = 'pluginOptions.allExtensions',
-  pluginOptions___jsxPragma = 'pluginOptions.jsxPragma',
-  pluginOptions___displayName = 'pluginOptions.displayName',
-  pluginOptions___fileName = 'pluginOptions.fileName',
-  pluginOptions___minify = 'pluginOptions.minify',
-  pluginOptions___transpileTemplateLiterals = 'pluginOptions.transpileTemplateLiterals',
-  pluginOptions___pure = 'pluginOptions.pure',
   pluginOptions___name = 'pluginOptions.name',
   pluginOptions___path = 'pluginOptions.path',
-  pluginOptions___base64Width = 'pluginOptions.base64Width',
-  pluginOptions___stripMetadata = 'pluginOptions.stripMetadata',
-  pluginOptions___defaultQuality = 'pluginOptions.defaultQuality',
-  pluginOptions___failOnError = 'pluginOptions.failOnError',
   pluginOptions___short_name = 'pluginOptions.short_name',
   pluginOptions___start_url = 'pluginOptions.start_url',
   pluginOptions___background_color = 'pluginOptions.background_color',
   pluginOptions___theme_color = 'pluginOptions.theme_color',
   pluginOptions___display = 'pluginOptions.display',
   pluginOptions___icon = 'pluginOptions.icon',
+  pluginOptions___cache_busting_mode = 'pluginOptions.cache_busting_mode',
+  pluginOptions___include_favicon = 'pluginOptions.include_favicon',
   pluginOptions___legacy = 'pluginOptions.legacy',
   pluginOptions___theme_color_in_head = 'pluginOptions.theme_color_in_head',
-  pluginOptions___cache_busting_mode = 'pluginOptions.cache_busting_mode',
-  pluginOptions___crossOrigin = 'pluginOptions.crossOrigin',
-  pluginOptions___include_favicon = 'pluginOptions.include_favicon',
   pluginOptions___cacheDigest = 'pluginOptions.cacheDigest',
   pluginOptions___host = 'pluginOptions.host',
   pluginOptions___sitemap = 'pluginOptions.sitemap',
@@ -4181,10 +4108,6 @@ enum SitePluginFieldsEnum {
   pluginOptions___apis___endpoint = 'pluginOptions.apis.endpoint',
   pluginOptions___apis___format = 'pluginOptions.apis.format',
   pluginOptions___trackingId = 'pluginOptions.trackingId',
-  pluginOptions___head = 'pluginOptions.head',
-  pluginOptions___anonymize = 'pluginOptions.anonymize',
-  pluginOptions___respectDNT = 'pluginOptions.respectDNT',
-  pluginOptions___pageTransitionDelay = 'pluginOptions.pageTransitionDelay',
   pluginOptions___pathCheck = 'pluginOptions.pathCheck',
   nodeAPIs = 'nodeAPIs',
   browserAPIs = 'browserAPIs',
@@ -4301,29 +4224,18 @@ type SitePluginPackageJsonPeerDependenciesFilterListInput = {
 type SitePluginPluginOptions = {
   readonly isTSX: Maybe<Scalars['Boolean']>;
   readonly allExtensions: Maybe<Scalars['Boolean']>;
-  readonly jsxPragma: Maybe<Scalars['String']>;
-  readonly displayName: Maybe<Scalars['Boolean']>;
-  readonly fileName: Maybe<Scalars['Boolean']>;
-  readonly minify: Maybe<Scalars['Boolean']>;
-  readonly transpileTemplateLiterals: Maybe<Scalars['Boolean']>;
-  readonly pure: Maybe<Scalars['Boolean']>;
   readonly name: Maybe<Scalars['String']>;
   readonly path: Maybe<Scalars['String']>;
-  readonly base64Width: Maybe<Scalars['Int']>;
-  readonly stripMetadata: Maybe<Scalars['Boolean']>;
-  readonly defaultQuality: Maybe<Scalars['Int']>;
-  readonly failOnError: Maybe<Scalars['Boolean']>;
   readonly short_name: Maybe<Scalars['String']>;
   readonly start_url: Maybe<Scalars['String']>;
   readonly background_color: Maybe<Scalars['String']>;
   readonly theme_color: Maybe<Scalars['String']>;
   readonly display: Maybe<Scalars['String']>;
   readonly icon: Maybe<Scalars['String']>;
+  readonly cache_busting_mode: Maybe<Scalars['String']>;
+  readonly include_favicon: Maybe<Scalars['Boolean']>;
   readonly legacy: Maybe<Scalars['Boolean']>;
   readonly theme_color_in_head: Maybe<Scalars['Boolean']>;
-  readonly cache_busting_mode: Maybe<Scalars['String']>;
-  readonly crossOrigin: Maybe<Scalars['String']>;
-  readonly include_favicon: Maybe<Scalars['Boolean']>;
   readonly cacheDigest: Maybe<Scalars['String']>;
   readonly host: Maybe<Scalars['String']>;
   readonly sitemap: Maybe<Scalars['String']>;
@@ -4333,10 +4245,6 @@ type SitePluginPluginOptions = {
   readonly serviceId: Maybe<Scalars['String']>;
   readonly apis: Maybe<ReadonlyArray<Maybe<SitePluginPluginOptionsApis>>>;
   readonly trackingId: Maybe<Scalars['String']>;
-  readonly head: Maybe<Scalars['Boolean']>;
-  readonly anonymize: Maybe<Scalars['Boolean']>;
-  readonly respectDNT: Maybe<Scalars['Boolean']>;
-  readonly pageTransitionDelay: Maybe<Scalars['Int']>;
   readonly pathCheck: Maybe<Scalars['Boolean']>;
 };
 
@@ -4357,29 +4265,18 @@ type SitePluginPluginOptionsApisFilterListInput = {
 type SitePluginPluginOptionsFilterInput = {
   readonly isTSX: Maybe<BooleanQueryOperatorInput>;
   readonly allExtensions: Maybe<BooleanQueryOperatorInput>;
-  readonly jsxPragma: Maybe<StringQueryOperatorInput>;
-  readonly displayName: Maybe<BooleanQueryOperatorInput>;
-  readonly fileName: Maybe<BooleanQueryOperatorInput>;
-  readonly minify: Maybe<BooleanQueryOperatorInput>;
-  readonly transpileTemplateLiterals: Maybe<BooleanQueryOperatorInput>;
-  readonly pure: Maybe<BooleanQueryOperatorInput>;
   readonly name: Maybe<StringQueryOperatorInput>;
   readonly path: Maybe<StringQueryOperatorInput>;
-  readonly base64Width: Maybe<IntQueryOperatorInput>;
-  readonly stripMetadata: Maybe<BooleanQueryOperatorInput>;
-  readonly defaultQuality: Maybe<IntQueryOperatorInput>;
-  readonly failOnError: Maybe<BooleanQueryOperatorInput>;
   readonly short_name: Maybe<StringQueryOperatorInput>;
   readonly start_url: Maybe<StringQueryOperatorInput>;
   readonly background_color: Maybe<StringQueryOperatorInput>;
   readonly theme_color: Maybe<StringQueryOperatorInput>;
   readonly display: Maybe<StringQueryOperatorInput>;
   readonly icon: Maybe<StringQueryOperatorInput>;
+  readonly cache_busting_mode: Maybe<StringQueryOperatorInput>;
+  readonly include_favicon: Maybe<BooleanQueryOperatorInput>;
   readonly legacy: Maybe<BooleanQueryOperatorInput>;
   readonly theme_color_in_head: Maybe<BooleanQueryOperatorInput>;
-  readonly cache_busting_mode: Maybe<StringQueryOperatorInput>;
-  readonly crossOrigin: Maybe<StringQueryOperatorInput>;
-  readonly include_favicon: Maybe<BooleanQueryOperatorInput>;
   readonly cacheDigest: Maybe<StringQueryOperatorInput>;
   readonly host: Maybe<StringQueryOperatorInput>;
   readonly sitemap: Maybe<StringQueryOperatorInput>;
@@ -4389,10 +4286,6 @@ type SitePluginPluginOptionsFilterInput = {
   readonly serviceId: Maybe<StringQueryOperatorInput>;
   readonly apis: Maybe<SitePluginPluginOptionsApisFilterListInput>;
   readonly trackingId: Maybe<StringQueryOperatorInput>;
-  readonly head: Maybe<BooleanQueryOperatorInput>;
-  readonly anonymize: Maybe<BooleanQueryOperatorInput>;
-  readonly respectDNT: Maybe<BooleanQueryOperatorInput>;
-  readonly pageTransitionDelay: Maybe<IntQueryOperatorInput>;
   readonly pathCheck: Maybe<BooleanQueryOperatorInput>;
 };
 
@@ -4456,131 +4349,9 @@ type StringQueryOperatorInput = {
   readonly glob: Maybe<Scalars['String']>;
 };
 
-type TransformOptions = {
-  readonly grayscale: Maybe<Scalars['Boolean']>;
-  readonly duotone: Maybe<DuotoneGradient>;
-  readonly rotate: Maybe<Scalars['Int']>;
-  readonly trim: Maybe<Scalars['Float']>;
-  readonly cropFocus: Maybe<ImageCropFocus>;
-  readonly fit: Maybe<ImageFit>;
-};
-
-type WebPOptions = {
-  readonly quality: Maybe<Scalars['Int']>;
-};
-
 type PagesQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 type PagesQueryQuery = { readonly allSitePage: { readonly nodes: ReadonlyArray<Pick<SitePage, 'path'>> } };
-
-type ContactQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ContactQuery = { readonly allMicrocmsContact: { readonly edges: ReadonlyArray<{ readonly node: Pick<MicrocmsContact, 'title' | 'subtitle' | 'map'> }> }, readonly allMicrocmsContactContent: { readonly edges: ReadonlyArray<{ readonly node: (
-        Pick<MicrocmsContactContent, 'contactTitle' | 'contactSubtitle' | 'contactCaption'>
-        & { readonly contactList: Maybe<ReadonlyArray<Maybe<Pick<MicrocmsContactContentContactList, 'tableHead' | 'tableData'>>>> }
-      ) }> }, readonly allMicrocmsExternalLinks: { readonly edges: ReadonlyArray<{ readonly node: Pick<MicrocmsExternalLinks, 'facebookLinkHP' | 'facebookLinkLC' | 'instagramLinkHP' | 'instagramLinkLC' | 'recruitLink'> }> } };
-
-type IntroQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type IntroQuery = { readonly allMicrocmsIntro: { readonly edges: ReadonlyArray<{ readonly node: (
-        Pick<MicrocmsIntro, 'id' | 'body' | 'heading'>
-        & { readonly image: Maybe<Pick<MicrocmsIntroImage, 'url'>> }
-      ) }> } };
-
-type MissionQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type MissionQuery = { readonly allMicrocmsMission: { readonly edges: ReadonlyArray<{ readonly node: (
-        Pick<MicrocmsMission, 'id' | 'title' | 'subtitle'>
-        & { readonly list: Maybe<ReadonlyArray<Maybe<Pick<MicrocmsMissionList, 'body' | 'heading'>>>> }
-      ) }> } };
-
-type ServiceQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ServiceQuery = { readonly allMicrocmsService: { readonly edges: ReadonlyArray<{ readonly node: Pick<MicrocmsService, 'title' | 'subtitle' | 'desc'> }> }, readonly allMicrocmsServiceContent: { readonly edges: ReadonlyArray<{ readonly node: (
-        Pick<MicrocmsServiceContent, 'tabTitleShort' | 'tabTitleLong' | 'tabTableMode'>
-        & { readonly tabContent: Maybe<(
-          Pick<MicrocmsServiceContentTabContent, 'tabContentBody1' | 'tabContentBody2' | 'tabContentTitle1' | 'tabContentTitle2'>
-          & { readonly tabContentImage1: Maybe<Pick<MicrocmsServiceContentTabContentTabContentImage1, 'url'>>, readonly tabContentImage2: Maybe<Pick<MicrocmsServiceContentTabContentTabContentImage2, 'url'>> }
-        )>, readonly tabTable: Maybe<(
-          Pick<MicrocmsServiceContentTabTable, 'table1Caption' | 'table1Data1' | 'table1Head1'>
-          & { readonly table1Image: Maybe<Pick<MicrocmsServiceContentTabTableTable1Image, 'url'>> }
-        )> }
-      ) }> } };
-
-type ExternalLinksQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ExternalLinksQueryQuery = { readonly allMicrocmsExternalLinks: { readonly edges: ReadonlyArray<{ readonly node: Pick<MicrocmsExternalLinks, 'facebookLinkHP' | 'facebookLinkLC' | 'instagramLinkHP' | 'instagramLinkLC' | 'recruitLink'> }> } };
-
-type StaffQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type StaffQuery = { readonly allMicrocmsStaff: { readonly edges: ReadonlyArray<{ readonly node: (
-        Pick<MicrocmsStaff, 'title' | 'subtitle' | 'id' | 'desc'>
-        & { readonly list: Maybe<ReadonlyArray<Maybe<(
-          Pick<MicrocmsStaffList, 'job' | 'hobbies' | 'message' | 'name' | 'quote'>
-          & { readonly thumbnail: Maybe<Pick<MicrocmsStaffListThumbnail, 'url'>> }
-        )>>> }
-      ) }> } };
-
-type SiteMetaDataQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type SiteMetaDataQueryQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
-
-type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
-
-type GatsbyImageSharpFixed_tracedSVGFragment = Pick<ImageSharpFixed, 'tracedSVG' | 'width' | 'height' | 'src' | 'srcSet'>;
-
-type GatsbyImageSharpFixed_withWebpFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
-
-type GatsbyImageSharpFixed_withWebp_tracedSVGFragment = Pick<ImageSharpFixed, 'tracedSVG' | 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
-
-type GatsbyImageSharpFixed_noBase64Fragment = Pick<ImageSharpFixed, 'width' | 'height' | 'src' | 'srcSet'>;
-
-type GatsbyImageSharpFixed_withWebp_noBase64Fragment = Pick<ImageSharpFixed, 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
-
-type GatsbyImageSharpFluidFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
-
-type GatsbyImageSharpFluidLimitPresentationSizeFragment = { maxHeight: ImageSharpFluid['presentationHeight'], maxWidth: ImageSharpFluid['presentationWidth'] };
-
-type GatsbyImageSharpFluid_tracedSVGFragment = Pick<ImageSharpFluid, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
-
-type GatsbyImageSharpFluid_withWebpFragment = Pick<ImageSharpFluid, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = Pick<ImageSharpFluid, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-type GatsbyImageSharpFluid_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
-
-type GatsbyImageSharpFluid_withWebp_noBase64Fragment = Pick<ImageSharpFluid, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-type GatsbyImageSharpResolutionsFragment = Pick<ImageSharpResolutions, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
-
-type GatsbyImageSharpResolutions_tracedSVGFragment = Pick<ImageSharpResolutions, 'tracedSVG' | 'width' | 'height' | 'src' | 'srcSet'>;
-
-type GatsbyImageSharpResolutions_withWebpFragment = Pick<ImageSharpResolutions, 'base64' | 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
-
-type GatsbyImageSharpResolutions_withWebp_tracedSVGFragment = Pick<ImageSharpResolutions, 'tracedSVG' | 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
-
-type GatsbyImageSharpResolutions_noBase64Fragment = Pick<ImageSharpResolutions, 'width' | 'height' | 'src' | 'srcSet'>;
-
-type GatsbyImageSharpResolutions_withWebp_noBase64Fragment = Pick<ImageSharpResolutions, 'width' | 'height' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp'>;
-
-type GatsbyImageSharpSizesFragment = Pick<ImageSharpSizes, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
-
-type GatsbyImageSharpSizes_tracedSVGFragment = Pick<ImageSharpSizes, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
-
-type GatsbyImageSharpSizes_withWebpFragment = Pick<ImageSharpSizes, 'base64' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-type GatsbyImageSharpSizes_withWebp_tracedSVGFragment = Pick<ImageSharpSizes, 'tracedSVG' | 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-type GatsbyImageSharpSizes_noBase64Fragment = Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
-
-type GatsbyImageSharpSizes_withWebp_noBase64Fragment = Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
 
 }
