@@ -6,7 +6,7 @@
   "license": "0BSD",
   "author": "Sungjoon Park <sungjoon512@gmail.com>",
   "engines": {
-    "node": "12.19.0",
+    "node": "14.15.3",
     "yarn": "1.22.10"
   },
   "scripts": {
