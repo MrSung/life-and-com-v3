@@ -33,8 +33,8 @@ export const Header: React.FC<IHeaderProps> = ({ pathname, scrollspyItems, exter
     setWinHeight(innerHeight)
   }
   const handleWinScroll = (): void => {
-    const scrollTop = typeof document.body.scrollTop !== 'undefined'
-      ? document.body.scrollTop : document.documentElement.scrollTop
+    const scrollTop = typeof window.pageYOffset !== 'undefined'
+      ? window.pageYOffset : document.documentElement.scrollTop
     setIsTriggered(scrollTop >= winHeight)
   }
 
