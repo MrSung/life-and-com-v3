@@ -43,12 +43,9 @@ export const Footer: React.FC<IFooterProps> = ({ logoItems }) => (
 
 const StyledFooter = styled.footer`
   margin-top: auto;
+  min-height: 168px;
 
-  img {
-    margin: 0;
-  }
-
-  .ts-block {
+  & > .ts-block {
     padding-bottom: 100px;
     padding-top: 40px;
 
@@ -80,6 +77,10 @@ const StyledFooterSection = styled.div`
   .logoWrap {
     align-items: center;
     display: flex;
+  }
+
+  .logoWrap > img {
+    margin: 0;
   }
 
   & + & {
