@@ -11,7 +11,16 @@ import {
   logoItems
 } from '../../../data/layout'
 
-export const Layout: React.FC = ({ children }) => {
+export enum LayoutMode {
+  Default = 'default',
+  NotFound = 'notFound'
+}
+
+export interface ILayoutProps {
+  mode: LayoutMode
+}
+
+export const Layout: React.FC<ILayoutProps> = ({ children, mode = LayoutMode.Default }) => {
   const data = useStaticQuery<GatsbyTypes.ExternalLinksQueryQuery>(graphql`
     query ExternalLinksQuery {
       allMicrocmsExternalLinks {
@@ -36,18 +45,20 @@ export const Layout: React.FC = ({ children }) => {
 
   return (
     <>
-      <Header
-        pathname={pathname}
-        scrollspyItems={scrollspyItems}
-        externalLinks={externalLinks.map((obj) => ({
-          ...obj,
-          url: recruitLink
-        }))}
-        socialLinks={socialLinks.map((obj) => ({
-          ...obj,
-          url: obj.name === 'facebook' ? facebookLinkLC : instagramLinkLC
-        }))}
-      />
+      {mode === LayoutMode.Default && (
+        <Header
+          pathname={pathname}
+          scrollspyItems={scrollspyItems}
+          externalLinks={externalLinks.map((obj) => ({
+            ...obj,
+            url: recruitLink
+          }))}
+          socialLinks={socialLinks.map((obj) => ({
+            ...obj,
+            url: obj.name === 'facebook' ? facebookLinkLC : instagramLinkLC
+          }))}
+        />
+      )}
       {children}
       <Footer logoItems={logoItems} />
     </>
