@@ -26,9 +26,9 @@ export const Intro: React.FC = () => (
     `}
     render={(data) => (
       <StyledSection id="intro">
-        <StyledDivImageWrapper>
+        <StyledIntroImageWrapper>
           <LazyLoad height={800}>
-            <img
+            <StyledIntroImage
               src={data.allMicrocmsIntro.edges[0].node.image.url}
               alt=""
               style={{
@@ -37,7 +37,7 @@ export const Intro: React.FC = () => (
               }}
             />
           </LazyLoad>
-        </StyledDivImageWrapper>
+        </StyledIntroImageWrapper>
         <StyledDivGradient>
           <StyledArticle className="ts-inner">
             <Fade bottom duration={400} distance="36px">
@@ -69,21 +69,21 @@ const StyledSection = styled.section`
   }
 `
 
-const StyledDivImageWrapper = styled.div`
+const StyledIntroImageWrapper = styled.div`
   height: 100%;
   overflow: hidden;
   position: absolute;
   width: 100%;
+`
 
-  & > img {
-    height: 100%;
-    left: 0;
-    object-fit: cover;
-    object-position: center center;
-    position: absolute;
-    top: 0;
-    width: 100%;
-  }
+const StyledIntroImage = styled.img`
+  height: 100%;
+  left: 0;
+  object-fit: cover;
+  object-position: center center;
+  position: absolute;
+  top: 0;
+  width: 100%;
 `
 
 const StyledDivGradient = styled.div`
