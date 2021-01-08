@@ -4,6 +4,7 @@ import styled from 'styled-components'
 // @ts-expect-error
 import LineFriendAdd from 'react-line-social/dist/friend'
 import { nanoid } from 'nanoid/non-secure'
+
 import { device } from '../../../../utils/device'
 import { iconFacebook, iconInstagram } from '../../../../data/contact'
 import { GoogleMap } from './google-map'

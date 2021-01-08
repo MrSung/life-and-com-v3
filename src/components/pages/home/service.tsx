@@ -3,6 +3,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import styled from 'styled-components'
 import LazyLoad from 'react-lazyload'
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs'
+
 import { device } from '../../../utils/device'
 import { serviceItems } from '../../../data/service'
 

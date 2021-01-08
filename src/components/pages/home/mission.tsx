@@ -4,6 +4,7 @@ import styled from 'styled-components'
 // @ts-expect-error
 import Fade from 'react-reveal/Fade'
 import { nanoid } from 'nanoid/non-secure'
+
 import { device } from '../../../utils/device'
 import { number1, number2, number3, number4 } from '../../../data/mission'
 

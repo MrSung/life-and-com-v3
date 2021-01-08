@@ -4,6 +4,7 @@ import styled from 'styled-components'
 // @ts-expect-error
 import Fade from 'react-reveal/Fade'
 import LazyLoad from 'react-lazyload'
+
 import { device } from '../../../utils/device'
 
 export const Intro: React.FC = () => (

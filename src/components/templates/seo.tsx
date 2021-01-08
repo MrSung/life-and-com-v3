@@ -8,6 +8,7 @@
 import React from 'react'
 import { Helmet } from 'react-helmet'
 import { useStaticQuery, graphql } from 'gatsby'
+
 import { imageOgp } from '../../data/seo'
 
 interface ISeoProps {

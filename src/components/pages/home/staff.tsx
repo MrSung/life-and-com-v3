@@ -6,6 +6,7 @@ import { debounce } from 'throttle-debounce'
 import Fade from 'react-reveal/Fade'
 import LazyLoad from 'react-lazyload'
 import { nanoid } from 'nanoid/non-secure'
+
 import { size, device } from '../../../utils/device'
 
 export const Staff: React.FC = () => {

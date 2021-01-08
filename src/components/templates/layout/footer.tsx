@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { nanoid } from 'nanoid/non-secure'
+
 import { device } from '../../../utils/device'
 
 interface ILogoItem {

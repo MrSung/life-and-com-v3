@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Scrollspy from 'react-scrollspy'
 import { nanoid } from 'nanoid/non-secure'
+
 import { device } from '../../../utils/device'
 import { logoTextSmVertical } from '../../../data/logo'
 

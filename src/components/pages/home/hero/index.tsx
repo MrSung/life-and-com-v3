@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { HeroSvg } from './hero-svg'
+
 import { device } from '../../../../utils/device'
 import { paths } from '../../../../utils/shape'
 

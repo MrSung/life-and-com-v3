@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Layout } from '../../templates/layout/index'
 import { Seo } from '../../templates/seo'
 import { Hero } from './hero/index'

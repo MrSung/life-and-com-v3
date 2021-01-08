@@ -1,5 +1,6 @@
 import React from 'react'
-import { Layout, LayoutMode } from '../../templates/layout/index'
+
+import { Layout, LayoutMode } from '../../templates/layout'
 import { Seo } from '../../templates/seo'
 import { Content } from './content'
 
