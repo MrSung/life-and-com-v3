@@ -4506,6 +4506,31 @@ type IntroQuery = { readonly allMicrocmsIntro: { readonly edges: ReadonlyArray<{
         & { readonly image: Maybe<Pick<MicrocmsIntroImage, 'url'>> }
       ) }> } };
 
+type StaffQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type StaffQuery = { readonly allMicrocmsStaff: { readonly edges: ReadonlyArray<{ readonly node: (
+        Pick<MicrocmsStaff, 'title' | 'subtitle' | 'id' | 'desc'>
+        & { readonly list: Maybe<ReadonlyArray<Maybe<(
+          Pick<MicrocmsStaffList, 'job' | 'hobbies' | 'message' | 'name' | 'quote'>
+          & { readonly thumbnail: Maybe<Pick<MicrocmsStaffListThumbnail, 'url'>> }
+        )>>> }
+      ) }> } };
+
+type ServiceQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ServiceQuery = { readonly allMicrocmsService: { readonly edges: ReadonlyArray<{ readonly node: Pick<MicrocmsService, 'title' | 'subtitle' | 'desc'> }> }, readonly allMicrocmsServiceContent: { readonly edges: ReadonlyArray<{ readonly node: (
+        Pick<MicrocmsServiceContent, 'tabTitleShort' | 'tabTitleLong' | 'tabTableMode'>
+        & { readonly tabContent: Maybe<(
+          Pick<MicrocmsServiceContentTabContent, 'tabContentBody1' | 'tabContentBody2' | 'tabContentTitle1' | 'tabContentTitle2'>
+          & { readonly tabContentImage1: Maybe<Pick<MicrocmsServiceContentTabContentTabContentImage1, 'url'>>, readonly tabContentImage2: Maybe<Pick<MicrocmsServiceContentTabContentTabContentImage2, 'url'>> }
+        )>, readonly tabTable: Maybe<(
+          Pick<MicrocmsServiceContentTabTable, 'table1Caption' | 'table1Data1' | 'table1Head1'>
+          & { readonly table1Image: Maybe<Pick<MicrocmsServiceContentTabTableTable1Image, 'url'>> }
+        )> }
+      ) }> } };
+
 type ContactQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4519,22 +4544,6 @@ type SiteMetaDataQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
 type SiteMetaDataQueryQuery = { readonly site: Maybe<{ readonly siteMetadata: Maybe<Pick<SiteSiteMetadata, 'title' | 'description' | 'author'>> }> };
 
-type ExternalLinksQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ExternalLinksQueryQuery = { readonly allMicrocmsExternalLinks: { readonly edges: ReadonlyArray<{ readonly node: Pick<MicrocmsExternalLinks, 'facebookLinkHP' | 'facebookLinkLC' | 'instagramLinkHP' | 'instagramLinkLC' | 'recruitLink'> }> } };
-
-type StaffQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type StaffQuery = { readonly allMicrocmsStaff: { readonly edges: ReadonlyArray<{ readonly node: (
-        Pick<MicrocmsStaff, 'title' | 'subtitle' | 'id' | 'desc'>
-        & { readonly list: Maybe<ReadonlyArray<Maybe<(
-          Pick<MicrocmsStaffList, 'job' | 'hobbies' | 'message' | 'name' | 'quote'>
-          & { readonly thumbnail: Maybe<Pick<MicrocmsStaffListThumbnail, 'url'>> }
-        )>>> }
-      ) }> } };
-
 type MissionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -4542,6 +4551,11 @@ type MissionQuery = { readonly allMicrocmsMission: { readonly edges: ReadonlyArr
         Pick<MicrocmsMission, 'id' | 'title' | 'subtitle'>
         & { readonly list: Maybe<ReadonlyArray<Maybe<Pick<MicrocmsMissionList, 'body' | 'heading'>>>> }
       ) }> } };
+
+type ExternalLinksQueryQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type ExternalLinksQueryQuery = { readonly allMicrocmsExternalLinks: { readonly edges: ReadonlyArray<{ readonly node: Pick<MicrocmsExternalLinks, 'facebookLinkHP' | 'facebookLinkLC' | 'instagramLinkHP' | 'instagramLinkLC' | 'recruitLink'> }> } };
 
 type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
@@ -4592,19 +4606,5 @@ type GatsbyImageSharpSizes_withWebp_tracedSVGFragment = Pick<ImageSharpSizes, 't
 type GatsbyImageSharpSizes_noBase64Fragment = Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'sizes'>;
 
 type GatsbyImageSharpSizes_withWebp_noBase64Fragment = Pick<ImageSharpSizes, 'aspectRatio' | 'src' | 'srcSet' | 'srcWebp' | 'srcSetWebp' | 'sizes'>;
-
-type ServiceQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-type ServiceQuery = { readonly allMicrocmsService: { readonly edges: ReadonlyArray<{ readonly node: Pick<MicrocmsService, 'title' | 'subtitle' | 'desc'> }> }, readonly allMicrocmsServiceContent: { readonly edges: ReadonlyArray<{ readonly node: (
-        Pick<MicrocmsServiceContent, 'tabTitleShort' | 'tabTitleLong' | 'tabTableMode'>
-        & { readonly tabContent: Maybe<(
-          Pick<MicrocmsServiceContentTabContent, 'tabContentBody1' | 'tabContentBody2' | 'tabContentTitle1' | 'tabContentTitle2'>
-          & { readonly tabContentImage1: Maybe<Pick<MicrocmsServiceContentTabContentTabContentImage1, 'url'>>, readonly tabContentImage2: Maybe<Pick<MicrocmsServiceContentTabContentTabContentImage2, 'url'>> }
-        )>, readonly tabTable: Maybe<(
-          Pick<MicrocmsServiceContentTabTable, 'table1Caption' | 'table1Data1' | 'table1Head1'>
-          & { readonly table1Image: Maybe<Pick<MicrocmsServiceContentTabTableTable1Image, 'url'>> }
-        )> }
-      ) }> } };
 
 }

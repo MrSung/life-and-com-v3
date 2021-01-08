@@ -1,7 +1,8 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import '../../../styles/layout.css'
+import styled from 'styled-components'
 
+import '../../../styles/layout.css'
 import { Header } from './header'
 import { Footer } from './footer'
 import {
@@ -59,8 +60,16 @@ export const Layout: React.FC<ILayoutProps> = ({ children, mode = LayoutMode.Def
           }))}
         />
       )}
-      {children}
-      <Footer logoItems={logoItems} />
+      <Inner>
+        {children}
+        <Footer logoItems={logoItems} />
+      </Inner>
     </>
   )
 }
+
+const Inner = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`
